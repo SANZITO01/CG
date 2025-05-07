@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Tarefas</title>
+</head>
+<body>
+<h1>Minhas Tarefas</h1>
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Adicionar</button>
+</form>
+<ul>
+{% for tarefa in tarefas %}
+<li>
+{% if tarefa.concluida %}
+<s>{{ tarefa.titulo }}</s>
+{% else %}
+{{ tarefa.titulo }}
+{% endif %}
+<a href="{% url 'deletar_tarefa' tarefa.id %}">[Excluir]</a>
+</li>
+{% empty %}
+<li>Nenhuma tarefa adicionada ainda.</li>
+{% endfor %}
+</ul>
+</body>
+</html>
